@@ -47,6 +47,9 @@ keyvault 的做法是**把 key 从数据库里拿出去**：数据库里只留�
 需要 Python 3.8+。没有 pip 依赖，不用装任何东西。
 
 ```bash
+git clone https://github.com/xhchy/new-api-keyvault
+cd new-api-keyvault
+
 # 1) 配置
 cp keys.example.json keys.json
 chmod 600 keys.json            # Windows: icacls keys.json /inheritance:r /grant:r "%USERNAME%":R
