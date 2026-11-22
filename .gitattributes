@@ -1,0 +1,11 @@
+# 统一换行符。不写这个，Windows 上 clone 下来全是 CRLF，
+# 而 Dockerfile / *.py 带 CRLF 会出真问题（容器里 shebang 和 CMD 解析失败）。
+* text=auto eol=lf
+
+*.bat  text eol=crlf
+*.cmd  text eol=crlf
+*.ps1  text eol=crlf
+
+*.png  binary
+*.jpg  binary
+*.ico  binary

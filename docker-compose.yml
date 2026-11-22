@@ -1,0 +1,29 @@
+# 默认不指定 version，避免 compose v2 的 obsolete 警告
+services:
+  keyvault:
+    build: .
+    image: keyvault:latest
+    container_name: keyvault
+    restart: unless-stopped
+
+    # 关键：冒号前面那个 127.0.0.1 表示只绑定宿主机回环。
+    # 写成 "3997:3997" 就是 0.0.0.0，同网段任何人都能借它调你的上游账号。
+    ports:
+      - "127.0.0.1:3997:3997"
+
+    volumes:
+      # 只读挂载。容器里没有写权限，就算被利用也改不了凭证
+      - ./keys.json:/app/keys.json:ro
+
+    environment:
+      KEYVAULT_LOG: info
+
+    # 容器内必须监听 0.0.0.0，否则宿主机映射不进去；
+    # 对外暴露范围由上面的 ports 那行控制，不是由这里控制。
+    command: ["python", "keyvault.py"]
+
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

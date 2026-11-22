@@ -1,0 +1,21 @@
+# 真实凭证，永远不要提交
+keys.json
+keys.*.json
+
+# 但示例和文档里的要留
+!keys.example.json
+!examples/keys.full.json
+
+# 运行时
+__pycache__/
+*.py[cod]
+*.log
+.env
+.env.*
+
+# 编辑器 / 系统
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini

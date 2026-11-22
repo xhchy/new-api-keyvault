@@ -1,0 +1,66 @@
+{
+  "_readme": [
+    "复制这份文件为 keys.json，然后把每个 YOUR_ 开头的值换成真 key。",
+    "改完跑一遍自检： python keyvault.py --check",
+    "keys.json 不要提交到 git，本仓库的 .gitignore 已经挡住了。",
+    "enabled 设成 false 可以临时停用一条路由，不用删配置。"
+  ],
+
+  "routes": {
+    "openai": {
+      "upstream": "https://api.openai.com",
+      "key": "YOUR_OPENAI_API_KEY",
+      "strip_prefix": "/v1",
+      "note": "OpenAI 官方。New-API 会拼 /v1，所以这里要剥掉一层"
+    },
+
+    "anthropic": {
+      "upstream": "https://api.anthropic.com",
+      "key": "YOUR_ANTHROPIC_API_KEY",
+      "auth_header": "x-api-key",
+      "auth_prefix": "",
+      "strip_prefix": "/v1",
+      "note": "Anthropic 认 x-api-key，不认 Authorization: Bearer"
+    },
+
+    "gemini": {
+      "upstream": "https://generativelanguage.googleapis.com/v1beta/openai",
+      "key": "YOUR_GOOGLE_AI_STUDIO_KEY",
+      "strip_prefix": "/v1",
+      "proxy": true,
+      "note": "OpenAI 兼容端点在 /v1beta/openai，New-API 再拼 /v1 会 404，靠 strip_prefix 救"
+    },
+
+    "azure": {
+      "upstream": "https://YOUR_RESOURCE.openai.azure.com/openai",
+      "key": "YOUR_AZURE_API_KEY",
+      "auth_header": "api-key",
+      "auth_prefix": "",
+      "note": "Azure 认 api-key 头；deployment 名要写进 New-API 的模型映射里"
+    },
+
+    "openrouter": {
+      "upstream": "https://openrouter.ai/api",
+      "key": "YOUR_OPENROUTER_KEY",
+      "strip_prefix": "/v1",
+      "extra_headers": {
+        "HTTP-Referer": "http://127.0.0.1",
+        "X-Title": "keyvault"
+      },
+      "note": "OpenRouter 建议带来源标识，不带你也能用，带了排行榜里能认出来"
+    },
+
+    "local": {
+      "upstream": "http://127.0.0.1:11434/v1",
+      "key": "",
+      "note": "本机 Ollama 之类。key 留空 = 不注入认证头，适合 keyless 上游"
+    },
+
+    "disabled_sample": {
+      "upstream": "https://example.com",
+      "key": "YOUR_KEY",
+      "enabled": false,
+      "note": "这条是停用状态的示例，用来演示 enabled:false 的写法，可以直接删"
+    }
+  }
+}

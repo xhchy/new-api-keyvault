@@ -1,0 +1,25 @@
+{
+  "_readme": [
+    "这是字段最全的示例，把每个可选字段都用上了，用作对照参考。",
+    "实际用的时候不需要这么多，keys.example.json 那份已经够。",
+    "注意：这份文件里的 key 全是假的，跑 --check 会报占位符问题，这是预期的。"
+  ],
+  "routes": {
+    "demo": {
+      "upstream": "https://api.example.com",
+      "key": "YOUR_KEY_HERE",
+      "auth_header": "Authorization",
+      "auth_prefix": "Bearer ",
+      "strip_prefix": "/v1",
+      "proxy": false,
+      "proxy_url": "http://127.0.0.1:7897",
+      "extra_headers": {
+        "X-Title": "keyvault",
+        "HTTP-Referer": "http://127.0.0.1"
+      },
+      "timeout": 600,
+      "enabled": true,
+      "note": "所有字段都写了一遍，仅作对照"
+    }
+  }
+}
